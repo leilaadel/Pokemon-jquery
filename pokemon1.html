@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Pokemon</title>
+        <link rel="stylesheet" type="text/css" href="pokemon.css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                for(var i=1; i<151; i++){
+                    $('.bigbox').append("<img class='"+i+"' src=\'http://pokeapi.co/media/img/"+i+".png\'/>");
+                }
+
+                $('img').click(function(){
+                  var u = $(this).attr("class");
+                  console.log(u);
+                  $.get("http://pokeapi.co/api/v1/pokemon/"+u+"/", function(res) {
+                    $(".box").html("<img src=\'http://pokeapi.co/media/img/"+u+".png\'/>");
+                    $(".box").append(res.name);
+                    $(".box").append("<br/>Height: ");
+                    $(".box").append(res.height);
+                    $(".box").append("<br/>Weight: ");
+                    $(".box").append(res.weight);
+                    $(".box").append("</br>Type: ");
+                    for(var x = 0; x < res.types.length; x++) {
+                      console.log(res.types[x].name);
+                      $(".box").append(res.types[x].name);
+                      $(".box").append(", ");
+
+                    }
+
+                    // console.log(res.name);
+                    // console.log(res.height);
+                    // console.log(res.weight);
+                    //$(".box").append("</br>Name:  ");
+                    //$(".box").append(res.name);
+                    // for(var x=0; x<res.type.length; i++){
+                    //   console.log(res.types[x].name);
+                    // }
+                  }, "json");
+                });
+            });
+        </script>
+    </head>
+    <body>
+      <div class="bigbox">
+
+        </div>
+      <div class="box">
+        <!-- <h5>Types</h5>
+        <h5>Height</h5>
+        <h5>Weight</h5> -->
+      </div>
+
+
+
+    </body>
+</html>
